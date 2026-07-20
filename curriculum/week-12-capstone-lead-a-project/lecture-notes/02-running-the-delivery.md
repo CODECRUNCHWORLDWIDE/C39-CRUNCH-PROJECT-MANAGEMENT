@@ -18,6 +18,20 @@ You don't need a daily standup meeting when you're the only attendee, but you do
 **Before stopping (5 minutes) — the part people skip and shouldn't:**
 - Update `capstone_items` and `capstone_status_history` to match the board, *today*, not retroactively on Saturday. Lecture 2's forecast and Lecture 3's report both depend on this being current — a gap of even one day makes your flow data lie about when things actually finished.
 
+```mermaid
+flowchart TD
+  A["Before starting"] --> B["Check board, pull next Ready item"]
+  B --> C["Check risk register for overnight changes"]
+  C --> D["While working"]
+  D --> E{"Blocked?"}
+  E -->|Yes| F["Move card to Blocked, write why"]
+  E -->|No| G["Keep working"]
+  F --> H["Before stopping"]
+  G --> H
+  H --> I["Update capstone_items and status history today"]
+```
+*The daily discipline loop that keeps a solo delivery's flow data honest.*
+
 ```sql
 -- when an item moves to Done, insert the closing history row and update the item
 UPDATE capstone_status_history
@@ -98,6 +112,15 @@ The tempting shortcut: "I've finished 2.3 items/day on average, I have 6 items l
 **Monte Carlo forecasting** (the specific, standard flavor used in Agile flow forecasting, popularized by Troy Magennis and Daniel Vacanti) works like this: instead of computing one number and projecting it forward, you **simulate the future thousands of times**, each time by randomly drawing from your *actual* historical daily throughput — with replacement, meaning any day's result, including a zero-day, can be redrawn — until the simulated backlog hits zero. Each simulation gives you one candidate "days to finish." Do this ten thousand times and you get a **distribution** of finish times, from which you can honestly say things like "85% of simulated futures finish within 4 days."
 
 This works because it doesn't assume anything about the *shape* of your variance — it just replays your own actual good days and bad days, in random order, many times. It respects the real lumpiness of solo work (a day where three small chores all land together, a day derailed by risk 1 materializing) instead of smoothing it into a single misleading average.
+
+```mermaid
+flowchart LR
+  A["Pull daily throughput history"] --> B["Fill in zero days"]
+  B --> C["Count remaining items"]
+  C --> D["Run ten thousand simulations"]
+  D --> E["Read p50 p85 p95 from results"]
+```
+*The Monte Carlo forecasting pipeline, from raw history to a confidence range.*
 
 ### 5c. Step 1 — pull your daily throughput history in SQL
 

@@ -21,6 +21,15 @@ A story can pass every one of its acceptance criteria and still not be *done* �
 
 A weak DoD has one line: "code works." A real one spans (at minimum) four categories, because each one is where "basically done" quietly hides a gap:
 
+```mermaid
+flowchart TD
+  DOD["Definition of done"] --> CODE["Code"]
+  DOD --> TESTS["Tests"]
+  DOD --> DOCS["Docs"]
+  DOD --> SIGN["Sign-off"]
+```
+*A real DoD spans four categories, each a place done quietly slips.*
+
 ### Code
 
 - Peer-reviewed by at least one other engineer, with review comments resolved (not just acknowledged).
@@ -111,6 +120,15 @@ The correct split, and it's a split, not a handoff:
 | **Delivery team (engineers)** | Building it right the first time — code review, unit tests, not shipping known-broken code "for QA to catch." Quality starts here, not at a QA gate downstream. |
 | **QA (Yuki Tanaka)** | Independent verification — integration testing, regression testing, signing off (or not) that the DoD's test and defect criteria are genuinely met. QA is a check on the team's own assessment, not a replacement for the team doing careful work. |
 | **PM** | Owns that the *gate itself* runs — that the DoD exists, is checked before it matters (not discovered at the last minute), and that "not met" actually stops the release rather than getting quietly overridden. The PM does not personally judge code quality; the PM makes sure the people who can are asked, on time, and listened to. |
+
+```mermaid
+flowchart LR
+  TEAM["Delivery team builds it right"] --> QA["QA verifies independently"]
+  QA --> GATE{"DoD met"}
+  GATE -->|Yes| PROCEED["PM's gate holds release proceeds"]
+  GATE -->|No| BLOCK["Release blocked until resolved"]
+```
+*Quality is a three-way split, not a handoff to QA at the end.*
 
 The PM's specific job in this triangle is protecting the **gate**, not personally deciding whether the code is good. When Marcus says "basically done" in Slack, the PM's job isn't to independently assess the signature-verification code — it's to say "let's check that against the DoD with Yuki and Sofia before we say it's done," and to make sure that check actually happens with enough runway to act on what it finds.
 

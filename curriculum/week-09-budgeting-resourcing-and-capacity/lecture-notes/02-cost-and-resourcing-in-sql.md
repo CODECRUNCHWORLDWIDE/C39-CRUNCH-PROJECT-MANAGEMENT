@@ -8,6 +8,14 @@ Lecture 1 built Atlas's budget on paper: $280,000, broken into labor, tooling, v
 
 You already created `people`, `budget_lines`, `actuals`, `time_entries`, and `allocations` in the [week setup](../README.md). Populate the roster and the budget plan first.
 
+```mermaid
+erDiagram
+  PEOPLE ||--o{ ALLOCATIONS : has
+  PEOPLE ||--o{ TIME_ENTRIES : logs
+  BUDGET_LINES ||--o{ ACTUALS : incurs
+```
+*The five tables this week's schema connects: people drive allocations and time entries, budget lines drive actuals.*
+
 ```sql
 INSERT INTO people (person_id, name, role, org_unit, employment_type, hourly_rate, weekly_capacity_hours, active) VALUES
 (1, 'Marcus Webb',  'Tech Lead',            'Engineering',   'employee',   145, 40, TRUE),
@@ -278,6 +286,17 @@ FROM cpi_calc;
 | 280000 | 318182 | 112782 | -38182 |
 
 Read in a sentence: **if Atlas keeps spending at its current cost-efficiency, the project will finish around $318,000 — about $38,000 (13.6%) over the original $280,000 budget.** This is a real forecast, built from real historical performance, not a guess — and it's meaningfully more pessimistic than a naive "we're 3 of 4 months in, so we're 75% done, budget's basically fine" read would suggest. Challenge 1 has you compute a second, simpler forecast method and reconcile why they disagree.
+
+```mermaid
+flowchart LR
+  BAC["BAC 280000"] --> PV["PV 188500 planned to date"]
+  BAC --> AC["AC 205400 actual spent"]
+  BAC --> EV["EV 180833 value earned"]
+  EV --> CPI["CPI 0.880"]
+  EV --> SPI["SPI 0.959"]
+  CPI --> EAC["EAC forecast 318182"]
+```
+*How PV, AC, and EV feed CPI and SPI, and how CPI drives the EAC forecast.*
 
 ## 8. Why this lives in a database, not a spreadsheet — three specific failures
 

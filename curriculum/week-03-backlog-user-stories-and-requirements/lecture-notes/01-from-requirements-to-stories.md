@@ -26,6 +26,14 @@ Ron Jeffries, one of Extreme Programming's originators, described a user story a
 
 This is also why a backlog of well-written stories doesn't replace requirements — it **schedules** them. Instead of resolving every requirement in week 1 (before anyone has built anything, when you know the least), you resolve each requirement in the conversation that happens just before it's built (when you know the most: the team has shipped adjacent pieces, the stakeholder has seen a real UI, and questions are concrete instead of hypothetical).
 
+```mermaid
+flowchart LR
+  A["Card - short token"] --> B["Conversation - team and stakeholder talk it through"]
+  B --> C["Confirmation - acceptance criteria written down"]
+  C --> D["Story gets built"]
+```
+*The Three Cs carry a story from a short card to a built, verified feature.*
+
 ## 3. The role–goal–benefit template
 
 The most common story format, popularized by Mike Cohn, is:
@@ -85,6 +93,15 @@ Here's the actual path Priya's comment took at Northlight:
    - *As a workspace member, I want to view the dashboards shared into my workspace, so that I can see what my team is tracking without asking someone to export a screenshot.*
    - *As a workspace member, I want to leave a comment on a shared dashboard, so that my team can discuss it without leaving Insights.*
 5. **Conversation continues** in refinement — the "second reader" role Elena mentioned surfaces here, becomes its own story once someone asks "wait, does everyone need full access?"
+
+```mermaid
+flowchart LR
+  A["Signal - hallway comment"] --> B["Elicitation - customer interviews"]
+  B --> C["Epic - Team Workspaces"]
+  C --> D["First stories drafted in refinement"]
+  D --> E["Conversation keeps refining detail"]
+```
+*How Priya's hallway comment turned into buildable stories on the backlog.*
 
 Notice what didn't happen: nobody wrote a 12-page spec for Team Workspaces before writing story 1. The epic captured the shared understanding of the *shape* of the work; the stories captured buildable slices of it; the conversation is still ongoing and will keep refining detail right up until each story is built.
 

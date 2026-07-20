@@ -153,6 +153,16 @@ Elena Cruz   Ledger Redesign            80.0   95.0           15.0
 
 Read Sofia's two rows together and the mechanism is exact: she logged **22 fewer hours than planned on Platform Core** and **6 more than planned on Atlas** — the over-allocation didn't average out or self-correct, it resolved by quietly starving the lower-visibility project (her own team's roadmap) in favor of the one with a PM actively asking for status. That's not a character flaw — it's what over-allocated people do under real constraint, predictably, and it's exactly the Platform Core work that fell 22 hours behind that same month, feeding straight into the dependency slip you logged in Week 6.
 
+```mermaid
+flowchart TD
+  A["Sofia allocated 70 percent Platform Core plus 40 percent Atlas"] --> B["Total 110 percent - over capacity"]
+  B --> C["Logs fewer hours than planned on Platform Core"]
+  B --> D["Logs more hours than planned on Atlas"]
+  C --> E["Platform Core falls behind"]
+  E --> F["Week 6 dependency slip"]
+```
+*How Sofia's portfolio-level over-allocation quietly turned into the Platform dependency slip.*
+
 ## 7. Building a resourcing plan that respects real availability
 
 Three real-world constraints a naive allocation plan ignores by default, and how this week's model handles each:

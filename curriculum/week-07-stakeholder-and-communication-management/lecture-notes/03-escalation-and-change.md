@@ -68,6 +68,16 @@ Evaluate every change request against three questions, in this order:
 2. **What does the triple constraint actually cost?** Every real "yes" moves something — more time, more scope cut elsewhere, or more resources. State it as a number, not a vibe: "3–4 dev-days, absorbed into sprint 8's buffer" or "3–4 dev-days, requiring either a 1-week date slip or cutting X."
 3. **Who has the authority to say yes?** Per Week 1's decision-authority section — usually the sponsor for anything touching date or budget, the product owner for scope trades within an already-approved backlog.
 
+```mermaid
+flowchart TD
+  A["Request touches scope date or budget"] --> B["Log it before it gets actioned"]
+  B --> C["Does it serve the charter objective"]
+  C --> D["What does the triple constraint actually cost"]
+  D --> E["Who has authority to decide"]
+  E --> F["Record the decision and close the loop"]
+```
+*Every change request moves through the same log-evaluate-decide-close pipeline, even an obvious yes.*
+
 Once decided, close the loop in the same table — don't let it become a decision nobody remembers making:
 
 ```sql

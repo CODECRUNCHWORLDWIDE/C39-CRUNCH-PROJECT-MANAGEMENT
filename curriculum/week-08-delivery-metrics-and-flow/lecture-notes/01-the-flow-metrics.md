@@ -59,6 +59,16 @@ cycle_time(issue) = resolved_at  - first_in_progress_at
 
 Why the distinction matters in practice: a backlog can grow for months with zero effect on cycle time (nobody's touched those tickets yet), while cycle time degrading is a direct signal about the *team's* flow, independent of how big the backlog is. If Priya asks "how long does a request take," she usually means lead time. If Marcus asks "why did this ticket take so long once we picked it up," he means cycle time. Answering the wrong one for the question asked is a classic, avoidable miscommunication.
 
+```mermaid
+flowchart LR
+  A["Created"] --> B["Backlog wait"]
+  B --> C["First In Progress"]
+  C --> D["Blocked"]
+  D --> E["In Review"]
+  E --> F["Done"]
+```
+*Lead time spans Created to Done; cycle time spans First In Progress to Done, and correctly includes the Blocked stage.*
+
 **A specific Atlas gotcha, coming in Lecture 2:** several Sprint 4–7 issues spent real days sitting in `Blocked` — waiting on the flaky third-party sandbox, or on the Platform team. Cycle time as defined above **includes** that blocked time (it's still elapsed time between start and finish), which is exactly why it's the metric that will expose the two risks Week 6's risk register flagged as "watching closely." An average that excluded blocked time would hide the exact thing you need to see.
 
 ## 5. WIP — work in progress
@@ -88,6 +98,14 @@ Cycle Time = WIP / Throughput
 ```
 
 Read that second form carefully: **for a fixed throughput, more WIP directly causes longer cycle time.** This is the single most actionable idea in flow management. If a team wants faster cycle time and throughput hasn't changed, the lever isn't "try harder" — it's **carry less WIP at once**. This is the entire intellectual case for Kanban WIP limits, and for a Scrum team asking "should we really start five things in parallel this sprint."
+
+```mermaid
+flowchart LR
+  A["Fixed throughput"] --> B["Team starts more WIP"]
+  B --> C["Longer cycle time"]
+  C --> D["Each item takes longer to finish"]
+```
+*The practical lever: with throughput flat, carrying more work in progress at once directly lengthens cycle time.*
 
 A worked example, independent of Atlas, to get the arithmetic under your fingers: a support team resolves 5 tickets/week (throughput) and carries an average of 8 open tickets at any moment (WIP). Little's Law predicts an average cycle time of `8 / 5 = 1.6 weeks`. If someone on that team is surprised tickets "take so long," this equation is the answer — not "the team needs to work harder," but "the team is carrying too much WIP for its throughput."
 

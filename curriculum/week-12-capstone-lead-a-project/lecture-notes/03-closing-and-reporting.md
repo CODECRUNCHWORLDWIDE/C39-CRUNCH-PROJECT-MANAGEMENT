@@ -26,6 +26,18 @@ If this returns any rows, you are not done, regardless of how it feels. This is 
 
 4. **The out-of-scope list from your charter is still accurate** — if you quietly built TP-11 (the Linux fallback Jordan marked `could`) because it turned out easy, that's fine, but say so; if you quietly *dropped* a `must` item and didn't update the charter, that's scope creep in reverse and needs to be visible, not hidden.
 
+```mermaid
+flowchart TD
+  A["Query must items not Done"] --> B{"Any rows returned?"}
+  B -->|Yes| C["Not done - keep working"]
+  B -->|No| D["Fresh clone, run README steps"]
+  D --> E{"Runs cleanly?"}
+  E -->|No| C
+  E -->|Yes| F["Check acceptance criteria per item"]
+  F --> G["Gate passes - ready to release"]
+```
+*The release gate as a checkable pass-or-fail sequence, not a feeling.*
+
 Jordan's TaskPing gate, run Friday evening:
 
 ```
@@ -133,6 +145,15 @@ print(f"Forecast was off by {actual_days_to_finish - forecast_p85_days} days")
 Jordan's actual Friday-to-Saturday sequence, in order: run the gate (§1) → catch that TP-10 is still open and correctly reclassify it as not-blocking since it was never a `must` → tag and test the rollback (§2) → release `v1.0` (§3) → run the retrospective (§4), which surfaces that risk 1 (notification permissions) *did* materialize and cost about half a day, exactly as flagged Monday → write the delivery report (§5), which reports the Thursday forecast (p85 = 4 days) against the actual outcome (5 days, one day over, attributable directly to risk 1) — a small miss, reported honestly, with the specific cause named rather than smoothed over.
 
 That gap between forecast and actual is not a failure of the forecast — it's exactly what §5f in Lecture 2 predicted a Monte Carlo forecast can't see: a risk that hadn't materialized yet in the history it was built from. Naming that plainly in the report is the single clearest signal that you understand this week's material, not just executed it.
+
+```mermaid
+flowchart LR
+  A["Run release gate"] --> B["Tag and test rollback"]
+  B --> C["Release v1.0"]
+  C --> D["Run retrospective"]
+  D --> E["Write delivery report"]
+```
+*Jordan's Friday-to-Saturday closing sequence, each step depending on the one before it.*
 
 ## 7. Check yourself
 

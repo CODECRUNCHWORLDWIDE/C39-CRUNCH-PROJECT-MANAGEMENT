@@ -57,6 +57,15 @@ Priya, the sponsor, cannot see the work happening — she sees what the PM tells
 
 A PM who's only reacting to problems that have already happened is running the project one week too late. Part of the job is asking "what could go wrong here, and what would we do about it" *before* it goes wrong — this becomes the risk register in Week 6, but the habit of thinking ahead starts now.
 
+```mermaid
+flowchart LR
+  A["Frame the work"] --> B["Unblock the team"]
+  B --> C["Communicate status honestly"]
+  C --> D["Manage risk before it is a crisis"]
+  D --> A
+```
+*The PM's four core activities are a continuous loop, not a one-time checklist.*
+
 Notice what's **not** on this list: writing code, designing the database schema, deciding what features ship, or personally deciding who does what task each day. Those belong to the tech lead, the architecture, the product owner, and the individual engineers respectively. A PM who starts doing those jobs is either duplicating someone else's work (annoying) or overriding it (worse).
 
 ## 4. The roles around the PM, and where the boundaries are

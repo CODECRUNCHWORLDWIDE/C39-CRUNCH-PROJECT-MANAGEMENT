@@ -76,6 +76,18 @@ GitHub Projects ships several **workflows** you turn on per-project under **Sett
 
 Atlas turns on three this week (this is the substance of board_items rows 8, 11, and 13 — all `tooling,automation`–labeled items Marcus closes on Monday): **auto-add** any issue opened in `northlight/atlas` with the label `atlas-team` (so nobody has to remember to drag new issues onto the board), **item closed → Status: Done** (so closing an issue on GitHub and marking it Done on the board are the same action, not two), and **auto-archive** anything Done for more than 14 days (so the "Everything" table view doesn't accumulate nine months of closed noise).
 
+```mermaid
+stateDiagram-v2
+  [*] --> Todo: Item added to project
+  Todo --> InProgress: Work starts
+  InProgress --> InReview: PR opened
+  InReview --> Done: PR merged
+  InProgress --> Blocked: Dependency stalls
+  Blocked --> InProgress: Unblocked
+  Done --> Todo: Item reopened
+```
+*How Atlas's built-in workflows move a card across the Status field without a human dragging it.*
+
 For anything a built-in workflow can't express — "when Priority is set to P0, also set Status to In Progress and ping the on-call channel" — you reach for the **GraphQL API** and a small script (or GitHub Actions using `actions/github-script`), which is exactly what Exercise 1's automation task does.
 
 ## 6. Wiring a repo's issues into a project (the GraphQL you actually need)
@@ -128,6 +140,15 @@ You rarely hand-write raw GraphQL like this day to day — the `gh project` CLI 
 ## 7. Exporting the board into SQL — why, and how
 
 Here is where this week's data-tooling rule earns its keep. GitHub's own UI can export a view to CSV — but a CSV you glance at once and discard answers today's question and no others. What Atlas actually needs is *this sprint's velocity compared to last sprint's*, *how long P0 items sit before someone picks them up*, *which engineer has the most Blocked items right now* — all questions that require the data to persist and be queryable, which is exactly `board_items` in this week's README.
+
+```mermaid
+flowchart LR
+  A["gh api graphql"] --> B["board_export.json"]
+  B --> C["pandas flatten"]
+  C --> D["board_items_raw table"]
+  D --> E["SQL GROUP BY status"]
+```
+*The export pipeline: GitHub Projects data becomes a queryable SQL table instead of a one-off CSV.*
 
 The real pipeline, which Exercise 1 has you run:
 

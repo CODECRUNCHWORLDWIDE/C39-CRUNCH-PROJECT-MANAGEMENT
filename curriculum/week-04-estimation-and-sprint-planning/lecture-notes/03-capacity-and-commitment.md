@@ -27,6 +27,17 @@ remaining_days  = available_days − meeting_days
 focused_days    = remaining_days × focus_factor
 ```
 
+```mermaid
+flowchart LR
+  A["Working days"] --> B["Subtract leave days"]
+  B --> C["Available days"]
+  C --> D["Subtract meeting days"]
+  D --> E["Remaining days"]
+  E --> F["Multiply by focus factor"]
+  F --> G["Focused days"]
+```
+*Each person's real capacity, whittled down in order from calendar days to heads-down engineering days.*
+
 As one SQL query against `team_capacity_calendar` for Sprint 3:
 
 ```sql

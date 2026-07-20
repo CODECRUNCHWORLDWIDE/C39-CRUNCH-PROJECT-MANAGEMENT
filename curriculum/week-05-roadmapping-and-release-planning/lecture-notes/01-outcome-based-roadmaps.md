@@ -56,6 +56,16 @@ Now/next/later solves the "stop pretending you know Q4" problem by making confid
 
 The columns are not a synonym for "priority high/medium/low." An item can be extremely high priority and still sit in **Later** honestly — because the *team doesn't have capacity for it this quarter*, not because nobody wants it. Confusing "not scheduled" with "not important" is a common and avoidable roadmap-reading mistake; §6 gives you the phrase that prevents it.
 
+```mermaid
+flowchart TD
+  A["Backlog ranked by priority"] --> B["Running cumulative story points"]
+  B --> C{"Cumulative points vs 114 point Q3 capacity"}
+  C -->|"Committed, sprints 1 to 4"| D["Now - high confidence"]
+  C -->|"Sequenced, sprints 5 to 6"| E["Next - moderate confidence"]
+  C -->|"Past the capacity line"| F["Later - low confidence, still tracked"]
+```
+*How priority order and the 114-point capacity line sort the backlog into Now, Next, and Later.*
+
 ## 5. Building Northlight's Q3 roadmap
 
 Here's the raw Q3 backlog Elena and Marcus handed you — seven initiatives, each already sized in story points and ranked by priority (Lecture 2 explains exactly how the points and the ranking were produced; for this lecture, take them as given):

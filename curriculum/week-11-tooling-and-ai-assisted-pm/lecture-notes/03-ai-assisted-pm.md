@@ -30,6 +30,14 @@ The one-sentence rule this lecture is built around: **an AI assistant is a fluen
 
 The fix isn't a magic phrase in the prompt ("please don't hallucinate" does approximately nothing) — it's a **pipeline shape**. Three stages, always in this order:
 
+```mermaid
+flowchart LR
+  A["Compute real SQL against real data"] --> B["Serialize to JSON verbatim"]
+  B --> C["Constrain prompt to narration only"]
+  C --> D["Grounded stakeholder output"]
+```
+*The grounded-prompt pipeline — AI only ever narrates numbers that already came out of a query.*
+
 **Stage 1 — Compute.** Run real SQL/pandas against real data. Every number that will appear in the output must come from here.
 
 ```sql

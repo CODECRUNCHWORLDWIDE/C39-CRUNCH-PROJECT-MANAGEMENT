@@ -139,6 +139,15 @@ Was blocked   (5 issues): 51.5%
 
 That's the real story: it isn't that Atlas's flow efficiency is "mostly fine, 89.5%." It's that **18 issues had a perfect, boring, healthy flow, and 5 specific issues — every single one tied to the sandbox or the Platform-team dependency — lost *half* their cycle time to being blocked.** The naive average buries a sharp, specific, fixable problem inside a comfortable-looking overall number. This is the single most important habit in this lecture: **before you average anything, ask whether the population is actually one group or two groups wearing the same column name.**
 
+```mermaid
+flowchart TD
+  A["23 completed issues"] --> B["18 never blocked, 100 percent efficient"]
+  A --> C["5 were blocked, about 51.5 percent efficient"]
+  B --> D["Naive average 89.5 percent hides the split"]
+  C --> D
+```
+*Segmenting first exposes the real story that a single blended average buries.*
+
 ## 5. Aging WIP — the piece a raw WIP count can't tell you
 
 Lecture 2's WIP count (`3`, as of 2026-04-06) says *how many* things are open. It says nothing about *how long* they've been open — and two issues that have both been "in progress" for a week are a very different situation than two issues that started yesterday. Build the aging view directly from `issues` plus each item's current-status entry date:
@@ -196,6 +205,15 @@ for day in pd.to_datetime(["2026-03-30", "2026-04-02", "2026-04-06"]):
 ```
 
 Read those three snapshots as a story, not three unrelated tables. At Sprint 7's *start* (03-30), almost nothing had moved — one carryover issue still blocked from Sprint 6. By 04-02, four issues were simultaneously `In Progress` at once — the team pulled in more than it could actively work, a classic overcommitment pattern (see the WIP band in a real CFD: a sudden widening of the "in progress" band is exactly this). By 04-06, the `In Progress`/`In Review`/`Blocked` band (the WIP band) is still holding at 3 issues while `Done` has only reached 2 — **the band never drained back down, it just shuffled which issues occupy it.** That is the visual signature of a stalling team: not "nothing is moving" (things clearly are — statuses keep changing), but "the *middle* of the workflow stays full no matter how much time passes," which is precisely Little's Law again — WIP staying high with throughput this low guarantees cycle time keeps climbing for whatever's still in that band.
+
+```mermaid
+flowchart LR
+  A["March 30 WIP band 1"] --> B["April 2 WIP band 4"]
+  B --> C["April 6 WIP band 3"]
+  D["March 30 Done 0"] --> E["April 2 Done 1"]
+  E --> F["April 6 Done 2"]
+```
+*The WIP band balloons then barely drains while Done only creeps forward — the stalling pattern the raw numbers alone are easy to miss.*
 
 ## 7. Check yourself
 

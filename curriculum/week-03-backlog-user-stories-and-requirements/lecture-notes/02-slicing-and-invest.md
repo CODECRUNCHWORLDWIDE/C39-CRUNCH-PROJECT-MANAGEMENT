@@ -15,6 +15,14 @@ Before slicing, place the vocabulary:
 | **Story** | Days | "Invite a teammate to a workspace by email" | Yes — that's the definition of story-sized |
 | **Task** | Hours | "Add `POST /workspaces/:id/invites` endpoint" | Sub-item of a story, usually not backlog-tracked as its own card |
 
+```mermaid
+flowchart TD
+  A["Initiative - Improve enterprise retention"] --> B["Epic - Team Workspaces"]
+  B --> C["Story - Invite a teammate by email"]
+  C --> D["Task - Add invites endpoint"]
+```
+*The backlog hierarchy narrows from a quarter-long initiative down to an hours-long task.*
+
 A backlog is mostly stories, with epics as organizing folders above them and occasional standalone small items (bugs, spikes, chores). The skill this lecture teaches is turning an epic into the stories underneath it — and testing each story against INVEST before it's allowed onto a sprint.
 
 ## 2. INVEST: the readiness checklist
@@ -55,6 +63,20 @@ This looks organized. It is actually a disaster for an Agile team, for one speci
 - Story: "Workspace member can view a dashboard shared into their workspace" (thin slice, all three layers)
 
 Each of these is small, but each is a **complete, demoable, potentially-shippable increment.** After story 1, Elena can log in and actually create a workspace — ugly UI maybe, but real, working, feedback-generating software. That's the entire point of Agile delivery, and it's impossible with horizontal slices.
+
+```mermaid
+flowchart TD
+  subgraph Horizontal["Horizontal layers - nothing demoable until all three land"]
+    H1["Sprint 1 - Database schema"] --> H2["Sprint 2 - Backend API"]
+    H2 --> H3["Sprint 3 - Frontend UI"]
+  end
+  subgraph Vertical["Vertical slices - each sprint ships something real"]
+    V1["Sprint 1 - Create a workspace end to end"]
+    V2["Sprint 2 - Invite a teammate end to end"]
+    V3["Sprint 3 - View a shared dashboard end to end"]
+  end
+```
+*Horizontal layering delays feedback to the last sprint; vertical slicing delivers real value every sprint.*
 
 ## 4. Slicing patterns — concrete ways to cut an epic
 

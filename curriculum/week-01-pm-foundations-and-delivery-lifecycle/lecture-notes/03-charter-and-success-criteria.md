@@ -94,6 +94,15 @@ A good PM's job when the triangle is under pressure is to make the trade-off **e
 
 Not every project should be run the same way. Three broad approaches, and when each fits:
 
+```mermaid
+flowchart TD
+  A["Are requirements stable and change costly to make later"] -->|Yes| B["Predictive: plan it all up front"]
+  A -->|No| C["Is the overall shape known but details need refining"]
+  C -->|Yes| D["Iterative: repeated fuller passes"]
+  C -->|No needs real user feedback| E["Agile: short sprints re-prioritize as you learn"]
+```
+*Choosing predictive, iterative, or Agile depends on how stable requirements are and how much user feedback is needed.*
+
 ### Predictive (a.k.a. "waterfall")
 
 Plan the whole project up front in detail, then execute the plan mostly as written. Phases happen once, in sequence: all requirements, then all design, then all build, then all test, then ship.

@@ -74,6 +74,17 @@ The trap to avoid: defaulting to "mitigate" for everything because it feels acti
 
 This week's schema focuses on Risks and Dependencies as separate tables because they need different columns (a risk needs probability/impact; a dependency needs a needed-by team and date) — but treat Assumptions and Issues as **rows you can add to the same `risks` table** using the `category` and `status` columns: an assumption is a risk row with `status = 'open'` and a note in `description` flagging it as an assumption; an issue is a risk row that's transitioned to `status = 'occurred'`.
 
+```mermaid
+stateDiagram-v2
+  [*] --> Assumption
+  [*] --> Dependency
+  Assumption --> Risk: proven false
+  Dependency --> Risk: becomes blocked
+  Risk --> Issue: occurs
+  Issue --> [*]
+```
+*How the four parts of RAID relate: an assumption or a blocked dependency can turn into a risk, and a risk that occurs becomes an issue.*
+
 ## 6. Building the live register in SQL
 
 You already created the `risks` table in this week's setup. Insert Atlas's risks from §3:

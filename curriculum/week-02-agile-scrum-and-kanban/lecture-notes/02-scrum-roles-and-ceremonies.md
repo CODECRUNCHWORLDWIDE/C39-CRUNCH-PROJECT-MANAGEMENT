@@ -78,6 +78,15 @@ Each ceremony has one job. Read the "what it's FOR" line before the "how" — th
 
 Notice the shape: planning and review both touch the **backlog** (what to build), while standup and retro both touch **how the team is working** (day-to-day and sprint-to-sprint respectively). Every ceremony that decays into theater does so the same way — it keeps the meeting and loses the output row in this table.
 
+```mermaid
+flowchart LR
+  A["Sprint Planning"] --> B["Daily Standup repeats through the sprint"]
+  B --> C["Sprint Review"]
+  C --> D["Sprint Retrospective"]
+  D --> A
+```
+*The sprint cycle: planning starts it, daily standups repeat throughout, review and retrospective close it before the next sprint begins.*
+
 ## 5. Where does the PM fit? (There's no "PM" role in Scrum.)
 
 This is worth addressing head-on, because this entire course is training project managers and Scrum, read strictly, has no PM title. In practice, on real teams, this resolves one of a few ways:

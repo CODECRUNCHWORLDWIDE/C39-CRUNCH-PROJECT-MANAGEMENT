@@ -76,6 +76,15 @@ This is the failure mode worth naming explicitly, because it's the one that make
 4. When a sponsor asks "will this be done by the renewal date," the team's honest answer is "we don't really know," and that answer gets defended as an Agile virtue rather than recognized as a planning failure.
 5. Scope silently balloons because nothing was ever written down as *out* of scope, and every "small addition" feels reasonable in isolation (the execution-phase scope-creep trap from Week 1, Lecture 2).
 
+```mermaid
+flowchart TD
+  A["Misread Value Four as no plans needed"] --> B["Skip writing a charter"]
+  B --> C["Sprint planning grabs whatever feels important"]
+  C --> D["Sponsor asks about the deadline and team says we do not know"]
+  D --> E["Scope silently balloons"]
+```
+*How the "we're Agile, so we don't need a plan" misuse unfolds, one step feeding the next.*
+
 None of that is what the Manifesto says. Real Agile teams plan constantly — they just plan in **short, revisable increments** (a sprint's worth) instead of one long, rigid increment (the whole project). Atlas still has a charter, a prioritized backlog, sprint plans, and success criteria; what's different from predictive delivery is the *time horizon* of each plan and how readily it's revised when reality disagrees with it. "Agile" is not a synonym for "unplanned" — it's a synonym for "the plan has a short enough leash that reality can correct it before real damage is done."
 
 **The tell that a team has fallen into this trap:** ask "what's in this sprint, and why those items specifically?" A team with real Agile discipline has a crisp answer rooted in priority and capacity. A team using "Agile" as an excuse for no plan will struggle to say why *this* work is happening *now* versus anything else.

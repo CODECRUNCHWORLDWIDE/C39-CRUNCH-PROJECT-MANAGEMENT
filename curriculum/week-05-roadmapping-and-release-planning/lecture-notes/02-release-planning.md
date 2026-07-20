@@ -149,6 +149,15 @@ ORDER BY priority_rank;
 
 Result: **R1** = items 1+2 (38 pts, sprints 1–2) · **R2** = items 3+4, trimmed (see §6, sprints 3–4) · **R3** = item 5 + the deferred slice of item 4 (sprints 5–6) · items 6–7 fall to **Later**, unscheduled this quarter.
 
+```mermaid
+flowchart LR
+  A["Item 1 and 2 - 38 pts"] --> R1["R1 - sprints 1 and 2"]
+  B["Item 3 and trimmed item 4 - 38 pts"] --> R2["R2 - sprints 3 and 4"]
+  C["Item 5 and deferred item 4 slice - 32 pts"] --> R3["R3 - sprints 5 and 6"]
+  D["Item 6 and 7"] --> L["Later - unscheduled"]
+```
+*How the priority-ranked backlog splits into three two-sprint releases plus a Later bucket.*
+
 ## 6. Fixed-scope vs. fixed-date releases
 
 Every release is one of two shapes, and mixing them up in your head is where release plans go wrong:
@@ -174,6 +183,13 @@ R2 becomes SOC 2 (20) + Data Export trimmed (18) = **38, exact.** JSON export (8
 ## 7. Dependency sequencing and the integrity check
 
 Item 3 (SOC 2) has `depends_on = 2` (Advanced Permissions) because the auditor needs role-level audit logs — you can't log access by role before roles exist. Item 6 (presence indicators) depends on item 1 (core workspaces) for the same structural reason. A release plan that assigns a dependent item to an *earlier* release than its dependency is broken, silently, until someone notices in execution — far too late. Catch it with a query, not a careful read:
+
+```mermaid
+flowchart LR
+  I1["Item 1 - Launch hardening - R1"] --> I6["Item 6 - Presence indicators - Later"]
+  I2["Item 2 - Advanced Permissions - R1"] --> I3["Item 3 - SOC 2 audit logging - R2"]
+```
+*Dependency edges point from prerequisite to dependent; the integrity check fails if a dependent's release comes before its prerequisite's.*
 
 ```sql
 SELECT

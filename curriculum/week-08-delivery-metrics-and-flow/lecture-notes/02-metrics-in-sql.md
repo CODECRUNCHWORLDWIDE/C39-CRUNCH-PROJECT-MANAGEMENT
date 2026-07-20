@@ -29,6 +29,13 @@ issue_status_history (history_id, issue_id, status, entered_at, left_at)
 
 `issues.resolved_at` and `issues.current_status` are **derived, denormalized convenience columns** — in a real Jira export you'd get both a flat CSV (`issues`, with a "Status" and a "Resolved" column) and a separate changelog export (`issue_status_history`). We keep both because some questions ("what's velocity?") only need the flat columns, and others ("how long was this blocked, and when?") need the full history. Knowing *which table to reach for* is half of writing a correct query fast.
 
+```mermaid
+erDiagram
+  SPRINTS ||--o{ ISSUES : contains
+  ISSUES ||--o{ ISSUE_STATUS_HISTORY : has
+```
+*One sprint has many issues, and one issue has many status-change events over its life.*
+
 ## 3. Velocity — `GROUP BY`, the metric's whole implementation
 
 ```sql
@@ -131,6 +138,16 @@ WHERE h.status IN ('In Progress', 'In Review', 'Blocked')
 ```
 
 That predicate — `entered_at <= X AND (left_at IS NULL OR left_at > X)` — is the general pattern for "was this interval open at time X," and you'll use it constantly once you start working with any kind of status history, subscription period, or booking data. Memorize its shape.
+
+```mermaid
+flowchart TD
+  A["Status interval entered then left"] --> B{"Entered on or before target date"}
+  B -- No --> C["Not yet WIP"]
+  B -- Yes --> D{"Left is empty or after target date"}
+  D -- No --> E["Already left that status"]
+  D -- Yes --> F["Counts as WIP on target date"]
+```
+*The interval-open-at-time-X check that every point-in-time WIP query relies on.*
 
 ## 6. Cycle time — joining `issues` to its own history
 

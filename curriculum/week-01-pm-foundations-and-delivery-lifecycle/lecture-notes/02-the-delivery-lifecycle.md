@@ -4,6 +4,16 @@
 
 Every project, regardless of industry, size, or whether the team calls itself "Agile," moves through the same five phases. Waterfall does them once, in strict sequence. Agile does them too — it just compresses planning/execution/monitoring into small repeating loops instead of one long pass. Understanding the five phases as *decisions and artifacts*, not as a rigid calendar, is what lets you recognize them inside any methodology later in this course.
 
+```mermaid
+flowchart LR
+  A["Initiation"] --> B["Planning"]
+  B --> C["Execution"]
+  C --> D["Monitoring and Control"]
+  D --> E["Closure"]
+  D -.-> C
+```
+*The five phases run mostly in sequence, but monitoring and execution loop together continuously until closure.*
+
 ## 1. The five phases, at a glance
 
 | Phase | Core question it answers | Key artifact(s) | Typical failure if skipped |

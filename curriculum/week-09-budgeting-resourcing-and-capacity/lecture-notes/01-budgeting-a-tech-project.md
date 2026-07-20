@@ -17,6 +17,15 @@ The four categories worth tracking separately:
 | **Vendor / third-party** | Contracts with outside parties — a paid API, a consultancy, a specialist contractor engagement priced as a fixed fee rather than hourly labor | 0–15%, project-dependent |
 | **Contingency** | A reserve for the risks you already know about (from your Week 6 risk register) and the ones you don't | 10–20% of the above |
 
+```mermaid
+flowchart TD
+  B["Total project budget"] --> L["Labor 70 to 90 percent"]
+  B --> T["Tooling 2 to 8 percent"]
+  B --> V["Vendor 0 to 15 percent"]
+  B --> C["Contingency 10 to 20 percent of base"]
+```
+*The four cost categories every technology-project budget rolls up from, labor dominant.*
+
 Atlas's shape is typical: a small core team (labor), a handful of SaaS tools plus CI/infra (tooling), a paid third-party real-time API — the same one whose flaky sandbox you logged as a risk in Week 6 (vendor) — and a contingency reserve sized against exactly that kind of known-unknown.
 
 **What this lecture deliberately does not cover:** capital expenditure, depreciation, overhead allocation (office space, benefits load beyond what's baked into the hourly rate), and tax treatment. Those are real and matter to Finance, but they're accounting-department concerns, not PM-level budget-building — the fully loaded hourly rate you'll use already has benefits and overhead folded in by Finance before it ever reaches you.
@@ -82,6 +91,15 @@ The single most common way contingency fails is treating it as free money once t
 
 - **Contingency is drawn against, not blended in.** When the November vendor spike hit, the $4,300 overage against the vendor line's plan-to-date was recorded as a **contingency draw** — a separate, visible transaction against the contingency budget line — not silently absorbed into the vendor actuals as if nothing happened. Anyone looking at the budget can see both "vendor ran over" and "here's what covered it," instead of one number that quietly nets them together.
 - **A draw needs the same trigger discipline as a risk response.** You don't draw contingency because a category "feels" tight — you draw it against a specific, named, dated event (here: "Nov vendor overage from emergency sandbox support hours, tied to risk R-2"). A contingency reserve with no draw log is indistinguishable from a made-up cushion nobody can account for later.
+
+```mermaid
+flowchart LR
+  R["Risk R-2 sandbox instability"] --> S["Vendor cost spike in November"]
+  S --> D["Contingency draw logged as its own transaction"]
+  D --> V["Vendor actuals stay accurate"]
+  D --> Cr["Contingency remaining goes down"]
+```
+*How a materializing risk turns into a traceable contingency draw, not a silently blended overage.*
 
 ## 6. Reading burn as a live signal, not an annual guess
 

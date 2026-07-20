@@ -68,6 +68,15 @@ Jordan's TaskPing objective line, as a model of the right length and specificity
 
 > "Ship a CLI tool, `taskping check`, that reads today's-or-overdue tasks from a SQLite table and fires one native desktop notification per task, by Saturday. This is deliberately the smallest real slice of a larger reminder-app idea — no daemon, no recurring tasks, no mobile app this week; those are out of scope by design, not by accident."
 
+```mermaid
+flowchart TD
+  J["You solo"] --> S["Sponsor - owns the why"]
+  J --> P["Product owner - owns the what"]
+  J --> T["Tech lead - owns the how"]
+  J --> M["PM - owns the when"]
+```
+*Naming the four decision-authority hats separately, even though one person wears them all.*
+
 ## 5. Slicing the backlog and picking a delivery approach
 
 With the charter's scope section as input, slice it into backlog items exactly as Week 3 taught: INVEST-shaped, each with acceptance criteria, sized with relative estimation (Week 4). For a project this size, err toward **Kanban flow** over fixed sprints (Week 2, §3) — a single week is too short for a meaningful sprint boundary, and Lecture 2's forecast (§5) wants daily throughput data, which flow naturally produces.
@@ -109,6 +118,17 @@ VALUES
 ```
 
 4. Set a WIP limit on **In Progress** — for a solo capstone, **1**. This isn't a formality; Week 2 taught exactly why a high WIP with one person behind it guarantees everything takes longer (Little's Law, Week 8) — and this week you'll have your own data proving it if you ignore the limit.
+
+```mermaid
+flowchart LR
+  A["Backlog"] --> B["Ready"]
+  B --> C["In Progress"]
+  C --> D["Blocked"]
+  C --> E["In Review"]
+  D --> C
+  E --> F["Done"]
+```
+*The board columns cards move through, mirroring current_status in capstone_items.*
 
 ## 7. Setting the delivery approach
 

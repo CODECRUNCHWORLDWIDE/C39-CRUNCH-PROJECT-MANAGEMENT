@@ -52,6 +52,14 @@ The underlying facts of Atlas's status are the same for everyone this week: the 
 
 All three are **true**. None of them lies by omission, and none of them dumps irrelevant detail on someone who didn't ask for it. That's the craft: the same underlying fact, honestly represented, shaped for what each specific person needs to do with it.
 
+```mermaid
+flowchart TD
+  A["Same underlying Atlas status facts"] --> B["Priya gets full detail and a decision ask"]
+  A --> C["Amara gets a concise proactive update"]
+  A --> D["Jamie gets plain language for customers"]
+```
+*One true set of facts, reframed in depth and tone for each audience.*
+
 ## 3. Honest RAG status — defining Green, Amber, and Red so they mean something
 
 RAG (Red/Amber/Green) status only works if the colors mean the same thing every time you use them. Vague, mood-based RAG — "I feel good about this, call it Green" — is exactly what erodes trust, because a sponsor eventually learns your Green doesn't predict anything. Define each color against **observable criteria**, in advance:

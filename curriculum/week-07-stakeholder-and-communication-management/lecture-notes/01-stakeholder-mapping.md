@@ -114,6 +114,16 @@ The single most useful thing this lecture teaches is spotting **silent blockers*
 
 Amara Osei is Atlas's clearest silent blocker. She has real power (sales messaging, executive air cover, and — because Sales talks to the exact accounts Atlas is meant to retain — real credibility if she decides to publicly doubt the project). She has shown almost no visible interest so far. That's not evidence she doesn't care; it's evidence nobody has proactively looped her in. The Week 6 risk register would flag this the same way it flags a flaky API: **probability** she becomes actively opposed if surprised (moderate — the sharing-API risk could genuinely slip the date she'd care about), **impact** if she does (high — a VP publicly questioning a project to the exact customers it's meant to retain is close to worst-case). The response, per Week 6's response-strategy framework, is **mitigate**: proactively engage her *before* she needs to ask, not react after she's upset.
 
+```mermaid
+flowchart TD
+  A["High power stakeholder not yet engaged"] --> B{"Proactively engaged before something changes"}
+  B -- No --> C["A date slips or a scope cut touches them"]
+  C --> D["Reacts late from zero context"]
+  B -- Yes --> E["Kept warm with proactive updates"]
+  E --> F["Stays confident no surprise reaction"]
+```
+*Why a silent blocker turns dangerous only when nobody engages them first.*
+
 ```sql
 -- surface every high-power, low-interest stakeholder before they become a problem
 SELECT name, role, power, interest

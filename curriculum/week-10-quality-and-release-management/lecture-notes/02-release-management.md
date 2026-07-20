@@ -103,6 +103,17 @@ A **big-bang release** flips the switch for 100% of users at once. A **staged ro
 
 Atlas is a clear staged case: real, currently-unresolved risk (ATLAS-131), a real dependency on another team's infrastructure (Sofia Reyes's Platform team), and a flag already built for exactly this purpose. Shipping 100% big-bang on April 29 with a known-flaky load path would be choosing the harder, riskier option when a safer one already exists and costs almost nothing extra.
 
+```mermaid
+flowchart LR
+  A["10 percent cohort"] --> B{"Health check passes"}
+  B -->|Yes| C["50 percent cohort"]
+  B -->|No| R["Pause or roll back"]
+  C --> D{"Health check passes"}
+  D -->|Yes| E["100 percent GA"]
+  D -->|No| R
+```
+*Atlas's percentage-based rollout pauses for a health check before widening each stage.*
+
 ## 5. The go/no-go decision
 
 A **go/no-go decision** is a specific, scheduled meeting (or synchronous check, for a smaller release) where a named group of people look at the actual current state — DoD status, checklist status, open defects, monitoring readiness — and make an explicit, recorded call. It is not a vibe check, and it is not one person's private judgment call dressed up as a meeting.
@@ -123,6 +134,15 @@ A **go/no-go decision** is a specific, scheduled meeting (or synchronous check, 
 - **Go** — release proceeds as planned, on schedule.
 - **No-go** — release does not proceed; a new date and the specific blockers to clear before then are named explicitly.
 - **Conditional go** — release proceeds, but *narrower* than originally planned, with the condition stated precisely (e.g., "go, but hold the rollout at 10% until the signature-verification success rate holds above 99% for 24 hours" or "go, minus the affected feature, fast-followed once fixed").
+
+```mermaid
+flowchart TD
+  INPUTS["DoD status, checklist status, open defects, monitoring"] --> DECISION{"Go or no-go call"}
+  DECISION --> GO["Go - proceeds on schedule"]
+  DECISION --> NOGO["No-go - new date and named blockers"]
+  DECISION --> COND["Conditional go - narrower scope, stated condition"]
+```
+*Every go or no-go call resolves to exactly one of three recorded outcomes.*
 
 Every decision gets recorded, not just remembered:
 

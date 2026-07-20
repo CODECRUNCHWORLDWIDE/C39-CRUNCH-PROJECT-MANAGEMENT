@@ -38,6 +38,17 @@ A Jira **workflow** is a directed graph: a set of **statuses** (To Do, In Progre
 
 This is Jira's genuinely bigger idea over GitHub Projects' simpler single-select: **workflow as governance**, not just as a label. It's also the thing that makes migrating a mature Jira project's workflow into GitHub Projects lossy — GitHub has no native "forbid this transition" concept, only "list of options." Challenge 1 makes you decide what to do with that gap: encode it in a GitHub Action that enforces the same rule, or accept the loss and rely on team discipline instead. Both are legitimate answers, argued differently.
 
+```mermaid
+stateDiagram-v2
+  [*] --> ToDo
+  ToDo --> InProgress
+  InProgress --> InReview
+  InReview --> Done
+  InProgress --> Blocked
+  Blocked --> InProgress
+```
+*PLAT's Jira workflow as a directed graph — only these transitions are legal; a direct To Do to Done jump is forbidden by the workflow itself.*
+
 **Transitions** can carry side effects — a **post-function** — configured by a Jira admin: moving to `Done` might auto-set the `resolved` date (exactly why `jira_issues.resolved` is populated only for rows where `status = 'Done'` in this week's seed — it's not a coincidence, it's the workflow doing its job), or a `Blocked` transition might require a mandatory comment explaining why. Sofia's team requires a comment on every `Blocked` transition — which is how PLAT-509's block reason ("test flakes in shared sandbox") ends up documented and query-able, not lost in a Slack thread.
 
 ## 4. JQL — the `WHERE` clause of Jira

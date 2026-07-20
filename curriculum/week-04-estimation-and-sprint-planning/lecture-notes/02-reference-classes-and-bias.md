@@ -20,6 +20,16 @@ This is Kahneman's clean framing, and it's the single idea this lecture wants yo
 
 Atlas has two reference classes available, and using both is stronger than using either alone.
 
+```mermaid
+flowchart LR
+  A["Inside view - this task this team this plan"] --> C["Confident but optimistic point estimate"]
+  B["Outside view - atlas history and reference class projects"] --> D["Measured overrun factor"]
+  C --> E["Compare the two"]
+  D --> E
+  E --> F["Stated range, not a false-precision point"]
+```
+*The inside view feels concrete; the outside view checks it against what actually happened elsewhere.*
+
 ## 3. Reference class 1: Atlas's own inside history
 
 `atlas_story_history` has sixteen stories where you know **both** numbers — the size estimated at planning time (converted to "ideal days" using the team's own 1-point-≈-1-ideal-day convention from Sprint 1) and the actual focused engineering-days it took. That gap, measured, *is* Atlas's personal planning-fallacy correction factor.

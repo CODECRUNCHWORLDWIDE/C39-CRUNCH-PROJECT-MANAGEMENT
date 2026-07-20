@@ -150,6 +150,14 @@ A single dependency (Atlas waits on Platform) is manageable — you can see it, 
 
 Chains are where dependency mapping stops being a nice-to-have and becomes essential: **you cannot manage a risk you can't see**, and a four-hop chain is invisible by default unless someone — usually the PM at the end of the chain who actually has a date on the line — traces it explicitly and asks at every hop, "what's blocking *you*?" Challenge 2 this week gives you exactly this scenario to untangle.
 
+```mermaid
+flowchart LR
+  Legal["Legal - trademark check"] --> Brand["Brand - illustration sign-off"]
+  Brand --> DesignSystems["Design Systems - avatar-stack component"]
+  DesignSystems --> Atlas["Atlas - sharing and presence release"]
+```
+*A four-hop chain: a delay at Legal quietly threatens Atlas's launch date, three teams removed.*
+
 ## 7. Check yourself
 
 - Write down one real internal dependency and one real cross-team dependency from a project you've worked on (school, work, or personal) — even if nobody called it that at the time.

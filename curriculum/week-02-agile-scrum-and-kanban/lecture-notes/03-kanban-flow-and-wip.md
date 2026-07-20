@@ -26,6 +26,14 @@ Here's the mechanism, concretely. Imagine a board with columns To Do → In Prog
 
 A **WIP limit** forces a different behavior: if In Progress is capped at, say, 4 items and it's full, nobody may start a fifth — the team's next move has to be **helping finish one of the four**, not starting something new. This single constraint is what turns "a board with columns" into an actual flow-management system. It manufactures urgency around *finishing*, which a to-do list with no cap never does.
 
+```mermaid
+flowchart LR
+  A["To Do"] --> B["In Progress capped by WIP limit"]
+  B --> C["In Review"]
+  C --> D["Done"]
+```
+*Kanban's continuous pipeline: items pull forward only when the next column has room under its WIP limit.*
+
 **Where the limit number comes from:** not a guess — start from real capacity. A common rule of thumb is roughly one to two items per person actively working that stage, then tune down (not up) as the team learns where the real bottleneck is. Exercise 2 this week walks through setting a real limit on a flooded board using this logic plus a query against the seed data.
 
 ## 3. Pull, not push

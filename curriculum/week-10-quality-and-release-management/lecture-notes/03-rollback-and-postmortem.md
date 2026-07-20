@@ -37,6 +37,19 @@ INSERT INTO rollback_steps (step_id, release_name, step_no, trigger_condition, a
 
 Read this table as a **decision tree**, not a fixed sequence — step 1 (flag off) is almost always sufficient by itself, because it's fast and reversible with zero data risk. Steps 4–5 only fire if step 1 doesn't resolve things, which is exactly why they're slower and higher-stakes: you reach for the expensive lever only after the cheap one has been tried and measured.
 
+```mermaid
+flowchart TD
+  T["Trigger condition met"] --> S1["Step 1: flip flag off - Omar Farouk"]
+  S1 --> CHECK{"Baseline restored within 15 minutes"}
+  CHECK -->|Yes| DONE["Send customer update if needed"]
+  CHECK -->|No| S4["Step 4: redeploy previous stable tag - needs Marcus sign-off"]
+  S4 --> DESTRUCTIVE{"Migration already took destructive writes"}
+  DESTRUCTIVE -->|Yes| S5["Step 5: run migration rollback script"]
+  DESTRUCTIVE -->|No| DONE
+  S5 --> DONE
+```
+*Atlas's rollback plan as a decision tree: reach for the expensive lever only after the cheap one fails.*
+
 **Who has the authority to pull the trigger?** This has to be decided in advance, too — not improvised in the moment. At Atlas, **Omar Farouk, as on-call SRE, can execute step 1 (the flag flip) unilaterally** the instant a trigger condition is objectively met — no meeting, no permission slip, because step 1 is cheap, fast, and fully reversible. **Steps 4 and beyond require Marcus Diallo's sign-off**, because they carry real cost (deploy risk, migration risk) that justifies a second, informed opinion before pulling them. Writing this down in advance is what prevents the two worst failure modes: someone waiting for permission that's slow to arrive while damage compounds, or someone escalating a decision that didn't need to be escalated.
 
 ## 3. Running the release
@@ -67,6 +80,16 @@ A **post-release review** (or postmortem) happens after every release with any r
 
 1. **Reconstruct the timeline** from the actual `release_events` log — facts, timestamps, no interpretation yet.
 2. **Ask "why" repeatedly** (the "5 whys" technique) until you reach a systemic cause, not a person. Example: *Why did the rollout pause?* → success rate dropped. *Why did it drop?* → signature verification started timing out. *Why?* → the Platform team's webhook infra hit a rate limit under sustained 50% traffic. *Why wasn't that caught before GA?* → the load test only ran at 2.1x peak, and the real failure only appears past 2.5x. *Why was 2.1x accepted as sufficient?* → no one had explicitly defined "peak" against real GA-scale traffic, only against Sprint 7's smaller beta cohort. That last "why" is a real, fixable, systemic finding — a definition gap in how the team scoped its own load test — and it names no individual.
+
+```mermaid
+flowchart LR
+  A["Rollout pauses"] --> B["Success rate dropped"]
+  B --> C["Signature verification timed out"]
+  C --> D["Webhook infra hit rate limit at 50 percent traffic"]
+  D --> E["Load test only ran at 2.1x peak"]
+  E --> F["Peak was never defined against real GA-scale traffic"]
+```
+*The 5 whys chain walks from the symptom down to the real systemic finding.*
 3. **Separate contributing factors from the root cause.** Rarely is there exactly one cause; usually several conditions had to align. Name all of them.
 4. **Write specific, owned, dated action items** — never "be more careful next time." Each finding becomes a backlog item with a name and a due date, logged where the rest of the team's work lives (Week 3's backlog, Week 8's issue tracker), not left in a document nobody revisits.
 

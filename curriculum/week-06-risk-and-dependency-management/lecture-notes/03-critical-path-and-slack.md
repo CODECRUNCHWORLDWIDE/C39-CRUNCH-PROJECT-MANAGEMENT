@@ -78,6 +78,19 @@ Now walk the tasks in *reverse* dependency order (successors before predecessors
 
 **The critical path is A → C → F → G**, totaling 5 + 6 + 4 + 2 = **17 days**, matching the project's total duration exactly — that's always true and a good sanity check on your arithmetic. Every task on it has zero slack: if Platform's permissions API (A) slips by even one day, or QA (F) runs one day long, Atlas's launch date moves by one day, full stop, with no absorption anywhere in between.
 
+```mermaid
+flowchart LR
+  A["A - Permissions API 5d"] --> C["C - Sharing backend 6d"]
+  B["B - Avatar UI 4d"] --> D["D - Presence UI 3d"]
+  E["E - Pulse.io creds 2d"] --> F["F - QA 4d"]
+  C --> F
+  D --> F
+  F --> G["G - Launch prep 2d"]
+  classDef critical stroke:#e74c3c,stroke-width:3px
+  class A,C,F,G critical
+```
+*The critical path runs A to C to F to G in red; B, D, and E have slack to absorb delay without moving the launch date.*
+
 Compare that to task **E** (Pulse.io integration) sitting on **9 days of slack** — this is the risk you scored at 12 in Lecture 1, and it turns out it can slip by *nine working days* without touching the launch date at all, because F needs C's output (day 11) far more urgently than it needs E's (which could finish any time up to day 11). This is a genuinely important, non-obvious result: **the risk that felt scariest in Lecture 1 sits on the path with the most room to absorb it.** That doesn't mean ignore it — a risk that eats all 9 days of slack still becomes critical — but it does mean it's not today's fire.
 
 **B and D**, by contrast, have only 4 days of slack each, and they're *coupled*: they share the same slack, because they both feed into F through the same downstream constraint. If Design Systems (B) slips 3 days, D can still absorb it and F is unaffected — but if B slips 5 days, the whole B → D → F chain now runs longer than the previous critical path, and **the critical path itself changes** to run through B and D instead of A and C. This is why critical path is not something you compute once at kickoff and file away — it needs to be **recomputed** every time a task's actual duration changes materially, because the "most urgent" tasks can shift underneath you.

@@ -20,6 +20,13 @@ When <an action happens>,
 Then <an expected, observable outcome>.
 ```
 
+```mermaid
+flowchart LR
+  A["Given - starting context"] --> B["When - action happens"]
+  B --> C["Then - observable outcome"]
+```
+*The three-part shape every acceptance criteria scenario follows.*
+
 Applied to the invite story from section 1:
 
 ```
@@ -64,6 +71,16 @@ Two related but distinct checklists a team should agree on and post somewhere ev
 | **Typical checklist** | Passes INVEST; acceptance criteria drafted; dependencies identified; design/API questions resolved enough to estimate | Code reviewed; tests passing; acceptance criteria all verified; deployed (or deployable); documentation updated if needed |
 | **Who owns it** | PM/PO, with the team's input, before planning | The whole team, checked at the sprint review |
 | **Failure mode if skipped** | Team starts building on a foundation of guesses (the horizontal-layer disaster from Lecture 2, in miniature) | "Done" quietly means different things to different people; scope creep re-enters through the back door |
+
+```mermaid
+flowchart LR
+  A["Story drafted"] --> B["Definition of Ready check"]
+  B --> C["Pulled into sprint"]
+  C --> D["Built and reviewed"]
+  D --> E["Definition of Done check"]
+  E --> F["Shipped"]
+```
+*A story crosses the Definition of Ready gate to enter a sprint, then the Definition of Done gate to exit it.*
 
 Atlas's team agreed on this DoD early in Week 2: code reviewed by one other engineer, automated tests passing, all acceptance-criteria scenarios manually verified against a staging environment, and — specifically because of the Week 1 retrospective lesson about the sharing-API risk — any third-party integration explicitly smoke-tested against the real sandbox, not just mocked. That last clause exists *because of a specific past failure*, which is exactly how a good DoD evolves: not written once from a template and frozen, but tightened when the team learns something the hard way.
 

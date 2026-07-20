@@ -21,6 +21,16 @@ Not every slip needs a roadmap-level response. Use a simple threshold test befor
 
 Advanced Permissions slipping two sprints fails **every** column: it's far larger than the 6-point buffer R1 had left over, SOC 2 depends directly on it, SOC 2's date is externally fixed and cannot move, and R1 was presented to Priya as a fixed-scope-but-high-confidence release. This is a re-plan, not a quiet absorption — and recognizing that quickly, rather than hoping it resolves itself, is the whole point of the test.
 
+```mermaid
+flowchart TD
+  A["Slip detected"] --> B{"Bigger than the reserved buffer"}
+  B -->|"No"| C["Absorb quietly within the release"]
+  B -->|"Yes"| D{"Dependents or a fixed date now at risk"}
+  D -->|"No"| C
+  D -->|"Yes"| E["Re-plan the release or roadmap"]
+```
+*The four-signal threshold test collapses to one branching question about buffer, dependents, and fixed dates.*
+
 ## 3. Recomputing the plan against reduced capacity
 
 If Advanced Permissions now finishes at the end of Sprint 4 instead of Sprint 2, everything downstream needs to be resequenced against what capacity actually remains. Recompute it explicitly rather than guessing:
@@ -62,6 +72,16 @@ Only **68 points remain** for everything still unshipped — SOC 2 (20), Data Ex
 ## 4. Protecting the fixed date first
 
 With SOC 2's audit window immovable, it gets first claim on the remaining capacity — not because it's intrinsically more important than Data Export or Onboarding, but because it's the one item on the list with zero flexibility on *when*. Everything else has flexibility on *when*; only scope and sequencing are still negotiable for those. The re-plan:
+
+```mermaid
+flowchart TD
+  A["68 points remaining for sprints 5 and 6"] --> B["SOC 2 - 20 pts - hard date claims first"]
+  B --> C["Data Export API - 26 pts - fits, 46 total"]
+  C --> D{"Onboarding - 24 pts pushes total to 70"}
+  D -->|"Trim 2 pts"| E["Onboarding ships trimmed"]
+  D -->|"Or defer"| F["Onboarding slips fully to Q4"]
+```
+*Remaining capacity is claimed in order, with the fixed SOC 2 date going first and Onboarding absorbing the two-point shortfall.*
 
 ```python
 remaining_items = backlog[backlog.title.isin(

@@ -51,6 +51,18 @@ The gaps *widening* as the numbers grow is the entire design, not an accident. A
 5. **If there's a spread — say Sam plays 3 and Priya plays 13 — that's not noise, that's signal.** The facilitator asks the low and high voters to explain their reasoning, *not* to justify a compromise. Sam might say "I did the CSV parser for the export feature already, this reuses most of it." Priya might say "I don't think the CSV format's been agreed with Elena yet — could need per-row validation and a whole error-reporting UI we haven't scoped." **Both are right about what they know.** The disagreement just revealed that the story is under-specified — exactly the kind of hidden complexity an hour-guess would have silently baked in wrong.
 6. **Re-vote after the discussion**, usually 1–2 more rounds. Convergence, or an explicit decision to split the story or take an action item ("Priya will confirm the CSV format with Elena before we finalize this") — never force a number nobody actually believes just to move on.
 
+```mermaid
+flowchart TD
+  A["Story read and discussed"] --> B["Everyone picks a card face down"]
+  B --> C["Everyone reveals simultaneously"]
+  C --> D{"Estimates agree or within one step"}
+  D -->|Yes| E["Number sticks"]
+  D -->|No| F["Low and high voters explain reasoning"]
+  F --> G["Re-vote"]
+  G --> D
+```
+*Planning poker's simultaneous-reveal loop: agreement ends the round, a spread triggers discussion instead of averaging.*
+
 ## 5. Storing the session as data, not a memory
 
 A poker round produces exactly the kind of thing this course insists you keep in a real table, not a sticky note that gets thrown away after the meeting: every voter's number, every round, and the final size. That history is what makes Lecture 2's bias-correction work possible, and it's what lets you answer "did our estimates get less accurate over time?" (Challenge 1) with a query instead of a vague memory.
